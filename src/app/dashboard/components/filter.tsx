@@ -30,21 +30,21 @@ function Filter({transactionType, setTransactionType, propertyType, setPropertyT
   const [openPrice, setOpenPrice] = useState(false);
 
   return (
-    <Grid container  direction='row' style={{marginTop:'1rem'}} justifyContent='space-between' spacing={0}>
-      <Grid item xs={12} style={{ overflowY: 'hidden', flexWrap: 'nowrap', scrollbarWidth: 'none'}} md={6} container spacing={1}>
+    <Grid container  direction='row' style={{marginTop:'2rem',height:'3rem'}} justifyContent='space-between' spacing={0}>
+      <Grid item xs={12} style={{ overflowY: 'hidden', flexWrap: 'nowrap', scrollbarWidth: 'none',gap:'1.2rem'}} md={6} container>
         <Select
           label='Transaction Type'
           value={transactionType}
           onChange={(value) => setTransactionType(value as string)}
           options={transactionOptions}
-          container={{md:3,xs:6}}
+          style={{width:'12.37rem',height:'2.6rem'}}
         />
         <Select
           label='Property type'
           value={propertyType}
           onChange={(value) => setPropertyType(value as string)}
           options={propertyOptions}
-          container={{md:3,xs:6}}
+          style={{width:'9.9rem',height:'2.6rem'}}
         />
         <Select
           label='Price'
@@ -62,11 +62,12 @@ function Filter({transactionType, setTransactionType, propertyType, setPropertyT
           defaultOpen={false}
           onClose={() => setOpenPrice(true)}
           onOpen={() => setOpenPrice(true)}
-          container={{ md: 2, xs: 6 }}
+          style={{width:'5.3rem',height:'2.6rem'}}
         />
       </Grid>
       <Grid item   sx={{
          '@media (max-width:600px)': {
+          //stles for small screens
             position: 'fixed',
             bottom: 0,
             left: 0,
@@ -79,26 +80,20 @@ function Filter({transactionType, setTransactionType, propertyType, setPropertyT
             p: 2,
             zIndex: 10, // Optional: ensure it's above other content
           },
-          // Styles for medium and larger screens
-          '@media (min-width:600px)': {
-            // position: 'relative',
-            // bottom: 'auto',
-            // bgcolor: 'transparent',
-            // p: 0,
-            margin: '0 1.5rem'
-          },
-          // Shared styles across all screen sizes
+          
         }}
         >
         <Button
         variant="contained"
         startIcon={<AddIcon />}
-        
         sx={{
+          textTransform: 'none',
           backgroundColor: "#7060FF", 
           color: "#fff",
-          width: '260px',
-          height: '40px',
+          width: '19.5rem',
+          height: '2.8rem',
+          gap: '0.6rem',
+          padding: '8px 22px',
           borderRadius: '8px',
           '@media (max-width:600px)': {
             width: '90%',

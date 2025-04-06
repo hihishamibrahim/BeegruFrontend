@@ -46,7 +46,10 @@ function Price({setPrice,price, onClose}) {
         borderRadius: '16px',
         boxShadow: 3,
         backgroundColor: 'white',
-        width: '300px',
+        maxWidth:'25rem',
+        width: '100%',
+        justifyContent:'center',
+        height:'15rem',
         margin: '0 auto',
       }}
     >
@@ -80,7 +83,7 @@ function Price({setPrice,price, onClose}) {
         valueLabelDisplay="auto"
         min={0}
         max={100}
-        sx={{ color: '#7b5cf9' }}
+        sx={{ color: '#7b5cf9', width:'95%' }}
       />
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
@@ -89,6 +92,8 @@ function Price({setPrice,price, onClose}) {
           sx={{
             backgroundColor: '#7b5cf9',
             color: 'white',
+            width:'100%',
+            borderRadius:'12px',
             textTransform: 'none',
             fontWeight: 600,
             '&:hover': { backgroundColor: '#6848e0' },

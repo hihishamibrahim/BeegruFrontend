@@ -121,7 +121,7 @@ export default function Home() {
           fullWidth
           disabled={isProcessing}
           type="submit"
-          style={{ backgroundColor: '#7060FF', marginTop: '16px', borderRadius: '8px' }}
+          style={{ backgroundColor: '#7060FF', marginTop: '16px', borderRadius: '8px', textTransform: 'none', fontWeight: 500 }}
         >
           Login / Sign up
         </Button>

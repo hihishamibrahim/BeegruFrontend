@@ -32,6 +32,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     <FormControl fullWidth variant="outlined">
       <Select
         {...props}
+        style={{color:'black',...(props.style||{})}}
         displayEmpty
         IconComponent={KeyboardArrowDownIcon}
         value={options.find(v=>v.value===value)?.label}
@@ -44,8 +45,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         renderValue={(selected) => (
           <Typography
             sx={{
-              // fontWeight: 600,
-              color: selected ? "#000" : "#9E9E9E",
+              color:'black'
             }}
           >
             {selected || label}
@@ -90,9 +90,10 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
               justifyContent: "center",
               my: 0.5,
               color: value === option.value ? "#7A50FF" : "#000",
-              backgroundColor: value === option.value ? "#F4F0FF" : "transparent",
+              backgroundColor: value === option.value ? "#7060FF29" : "transparent",
               "&:hover": {
-                backgroundColor: "#F4F0FF",
+                backgroundColor: "#7060FF29",
+                color: "#3D28FF",
               },
             }}
           >

@@ -22,16 +22,17 @@ function AddOrEditProperty({ data, id, onClose }: { data: {name: string; type: s
     name: '',
     type: '',
     propertyType: '',
-    price: 0,
+    price: undefined as number | undefined,
   });
 
+  //sets the default data if its a edit request
   useEffect(() => {
     if (data) {
       setFormData({
         name: data.name || '',
         type: data.type || '',
         propertyType: data.propertyType || '',
-        price: data.price || 0,
+        price: data.price,
       });
     }
   }, [data]);
@@ -45,7 +46,7 @@ function AddOrEditProperty({ data, id, onClose }: { data: {name: string; type: s
     setFormData({ ...formData, [name]: value });
   };
 
-
+  //add or edit property function
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -79,7 +80,7 @@ function AddOrEditProperty({ data, id, onClose }: { data: {name: string; type: s
         }
       }}
     >
-      <Typography variant="h6" sx={{ fontWeight: 600, textAlign: 'left' }}>
+      <Typography variant="h6" sx={{ fontWeight: 500, textAlign: 'left', fontSize: '1.5rem' }}>
         {data ? 'Edit Property' : 'Create a new property'}
       </Typography>
       <TextField
@@ -115,7 +116,9 @@ function AddOrEditProperty({ data, id, onClose }: { data: {name: string; type: s
           backgroundColor: '#7b5cf9',
           color: 'white',
           textTransform: 'none',
-          fontWeight: 600,
+          fontWeight: 400,
+          fontSize: '1rem',
+          borderRadius: '8px',
           '&:hover': { backgroundColor: '#6848e0' },
         }}
       >

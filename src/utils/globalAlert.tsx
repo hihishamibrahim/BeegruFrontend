@@ -1,9 +1,7 @@
 'use client'
 import { create } from 'zustand';
 import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
-import CloseIcon from '@mui/icons-material/Close';
 
 interface AlertState {
   message: string;
@@ -73,7 +71,7 @@ export const globalAlert = {
 };
 
 export const GlobalAlert = () => {
-  const { alert, hideAlert } = useAlertStore();
+  const { alert } = useAlertStore();
 
   if (!alert?.show) return null;
 console.log(alert)
@@ -82,16 +80,6 @@ console.log(alert)
         <Alert
         severity={alert.type}
         style={{width:'fit-content',zIndex:9999,position:'fixed',bottom:'1rem',left:'1rem'}}
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={hideAlert}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
           sx={{ mb: 2 }}
         >
           {alert.message}

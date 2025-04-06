@@ -73,17 +73,18 @@ export const fetchData = async ({path, method, body}: { path: string; method: 'G
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`
        },
-      ...method==='POST'? {body: JSON.stringify(body)} : {}
+      ...method!=='GET'? {body: JSON.stringify(body)} : {}
     });
     if (!response.ok) {
-      console.log(response.status)
-      if(response.status===401)clearTokens();
+      console.log(response)
+      if(response.status===401) clearTokens();
       throw new Error(`Failed to get data. Path: ${path}, Response: ${response.statusText}`);
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
+    console.log(error)
     throw error;
   }
 };

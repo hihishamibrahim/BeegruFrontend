@@ -5,7 +5,6 @@ export function middleware(request: NextRequest) {
   console.log('middleware',request.url)
   // Get the token from cookies
   const token = request.cookies.get('accessToken');
-  console.log(token)
   const isAuthenticated = !!token;
   const { pathname } = request.nextUrl;
 

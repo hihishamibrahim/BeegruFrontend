@@ -13,6 +13,7 @@ const [transactionType, setTransactionType] = useState<string>('');
 const [propertyType, setPropertyType] = useState<string>('');
 const [price, setPrice] = useState({min:0,max:100000});
 
+//gets the count of the properties on page load and get the list of properties
     useEffect(() => {
         const countFunc = async ()=>{
             try {
@@ -24,13 +25,9 @@ const [price, setPrice] = useState({min:0,max:100000});
                 (window as { toast?: { error: (message: string) => void } }).toast?.error('Error: ' + errorMessage);
             }
         }
-        countFunc()
-    }, [transactionType,propertyType,price]);
-
-    useEffect(() => {
         const listFunc=async()=>{
-
-        try {
+            
+            try {
             const data=  await fetchData({path:'property/list',method:'GET',body:{type:transactionType,propertyType,minPrice:price.min,maxPrice:price.max}})
             setProperties(data?.properties);
         }
@@ -39,6 +36,7 @@ const [price, setPrice] = useState({min:0,max:100000});
             (window as { toast?: { error: (message: string) => void } }).toast?.error('Error: ' + errorMessage);
         }
     }
+    countFunc()
     listFunc()
     }, [transactionType,propertyType,price]);
 
@@ -52,33 +50,37 @@ const [price, setPrice] = useState({min:0,max:100000});
         price={price}
         setPrice={setPrice}
         />
-        <Grid style={{marginLeft:'-1rem',marginTop:'0rem'}} container spacing={2}>
-            <Grid item xs={12} container>
+        <Grid style={{marginLeft:'0rem',marginTop:'1rem',gap:'1rem'}} container spacing={1}>
+        <Grid item xs={12} container alignItems="center">
             <Typography
-            variant="subtitle2"
-            sx={{
-                fontWeight: 700,
-                color:'black',
-                fontSize: "13px",
-                letterSpacing: "0.5px",
-                textTransform: "uppercase",
-            }}
+                variant="subtitle2"
+                sx={{
+                fontWeight: 500,
+                color: 'black',
+                fontSize: '1.05rem',
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
+                marginRight: 1,
+                }}
             >
-            Showing {propertiesCount} Properties
+                Showing {propertiesCount} Properties
             </Typography>
-            <Divider sx={{ margin: "8px 0" }} />
+            <Divider sx={{ flexGrow: 1 }} />
             </Grid>
-            {properties?.map(v=>(
-            <CardWithDetails
-                key={v._id}
-                id={v._id}
-                price={v.price}
-                tag={v.type}
-                title={v.name}
-                onDelete={async() => await fetchData({path:`property/delete/${v._id}`,method:'DELETE', body: {}})}
-                subtitle={v.propertyType==='Apartment'? "Builder floor apartment" : "Land"}
-            />
-            ))}
+            <Grid container style={{gap:'40px 16px'}}>
+                {properties?.map(v=>(
+                    <CardWithDetails
+                        key={v._id} 
+                        id={v._id}
+                        price={v.price}
+                        tag={v.type}
+                        title={v.name}
+                        onDelete={async() => await fetchData({path:`property/delete/${v._id}`,method:'DELETE', body: {}})}
+                        subtitle={v.propertyType==='apartment'? "Builder floor apartment" : "Land"}
+                    />
+                ))}
+            </Grid>
         </Grid>
     </>
   );

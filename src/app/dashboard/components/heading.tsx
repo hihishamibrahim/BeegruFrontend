@@ -20,16 +20,18 @@ const Heading = ({ isSignUp }: HeadingProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const router = useRouter();
+
   useEffect(() => {
     const fetchUsername = async () => {
       try {
+        //checks for auth token and decides if user is logged in or not
         const accessToken = getAccessToken();
         if (!accessToken) {
           router.push('/auth/login');
           setIsLoading(false)
           return;
         }
-
+        //checks if auth token is valid and gets the user info
         const data = await fetchData({path:'auth/user-info',method:'GET',body:undefined})
         setUsername(data.username);
       } catch (err) {
@@ -41,6 +43,8 @@ const Heading = ({ isSignUp }: HeadingProps) => {
     fetchUsername();
   }, [router])
   
+  //logout function clears the localstorage data and redirects to login page
+  //and also calls the logout api which clears the refresh token from the server
   const hLogout = async () => {
     setIsProcessing(true);
     try {
@@ -62,44 +66,45 @@ const Heading = ({ isSignUp }: HeadingProps) => {
   if(isLoading) return <CircularProgress/>
 
   return (
-    <Paper elevation={0} style={{background:'white', height:'80px',width:'100%',display:'flex',padding:'16px',borderRadius:'8px',justifyContent:'space-between',alignItems:'center'}}>
-        <Grid container justifyContent="space-between" alignItems="center" >
-    <Grid item>
-      <Typography variant="body1" sx={{  color:'black'}}>
-        Welcome {!isSignUp?'back':''}
-      </Typography>
-      <Typography variant="body2" sx={{ color: 'gray' }}>
-        {username || '[username]'}
-      </Typography>
-    </Grid>
-    <Grid item>
-    <Button
-      variant="outlined"
-      disabled={isProcessing}
-      loading={isProcessing}
-      color="primary"
-      startIcon={<LogoutIcon />}
-      onClick={hLogout}
-      sx={{
-        borderRadius: "12px", 
-        textTransform: "none",
-        paddingX: 2,
-        paddingY: 1,
-        fontWeight: 500,
-        borderColor: "#7060FF",
-        height:'36px',
-        weight:'110px',
-        color: "#7060FF", 
-        "&:hover": {
-          borderColor: "#5b21b6",
-          backgroundColor: "rgba(124, 58, 237, 0.05)",
-        },
-      }}
-    >
-      Logout
-    </Button>
-    </Grid>
-  </Grid>
+    <Paper elevation={0} style={{background:'white', height:'6rem',width:'100%',display:'flex',padding:'16px',borderRadius:'8px',justifyContent:'space-between',alignItems:'center'}}>
+      <Grid container justifyContent="space-between" alignItems="center" >
+        <Grid item style={{width:'9.15rem',height:'3.6rem',gap:'0.3rem', alignContent:'space-evenly'}}>
+          <Typography variant="body1" sx={{  color:'black', height:'1.8rem', fontSize:'1.2rem'}}>
+            Welcome {!isSignUp?'back':''}
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'gray',fontSize:'1.05rem' }}>
+            {username || '[username]'}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            variant="outlined"
+            disabled={isProcessing}
+            loading={isProcessing}
+            color="primary"
+            startIcon={<LogoutIcon />}
+            onClick={hLogout}
+            sx={{
+              border:'1px solid #7060FF7A',
+              borderRadius: "12px", 
+              textTransform: "none",
+              paddingX: 2,
+              paddingY: 1,
+              fontWeight: 500,
+              borderColor: "#7060FF",
+              height:'2.7rem',
+              weight:'8.25rem',
+              color: "#7060FF", 
+              "&:hover": {
+                borderColor: "#5b21b6",
+                backgroundColor: "rgba(124, 58, 237, 0.05)",
+              },
+            }}
+          >
+            Logout
+          </Button>
+        </Grid>
+      </Grid>
     </Paper>
 );
 };

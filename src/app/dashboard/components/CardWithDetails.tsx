@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Card, Box, Typography, Chip, IconButton, Grid, Menu, MenuItem } from '@mui/material';
+import { Paper, Box, Typography, Chip, IconButton, Grid, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import HomeIcon from '@mui/icons-material/Home';
+import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import Dialog from '@mui/material/Dialog';
 import AddOrEditProperty from './AddOrEditProperty';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 
 interface CardWithDetailsProps {
   price: number;
@@ -27,31 +28,32 @@ const CardWithDetails: React.FC<CardWithDetailsProps> = ({id, price, tag, title,
   };
 
   return (
-    <Grid item md={3} xs={12}>
-      <Card
-        raised={false}
+    <Grid item style={{gap:'16px'}}>
+      <Paper
+        elevation={2}
+        variant='outlined'
         sx={{
-          width: '100%',
-          height: 116,
+          height: '8.7rem',
+          width: { xs: "348px", md: "20.16rem" },
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           borderRadius: '12px',
           padding: '12px',
           border: '1px solid #e0e0e0',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
           background: 'white',
           overflowX: 'auto'
         }}
       >
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Grid container alignContent={'space-between'} sx={{ height: '100%' }}>
+        <Grid item container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'black' }}>
-              ₹ {price}
+            <Typography variant="h6" sx={{ color: 'black',fontSize: '1.2rem', fontWeight: 400, lineHeight:'150%', lineSpacing:'0.15px'}}>
+              <CurrencyRupeeIcon sx={{ fontSize: 20,marginBottom:'-0.2rem' }}/> {new Intl.NumberFormat('en-IN').format(price)}
             </Typography>
           </Box>
           <Box>
-            <Chip label={tag} sx={{ backgroundColor: tag === 'Sale' ? '#B7EFC5' : '#ffe0cc', color: tag === 'Sale' ? '#1E4620' : '#ff5722', fontWeight: 'bold' }} />
+            <Chip  style={{color:tag==='rent'?'#000000B2':'#1E4620', backgroundColor:tag==='rent'?'#FFC6AC':'#B7EFC5'}} label={tag==='rent'?'Rent':'Sale'} sx={{ marginRight:'0.8rem',backgroundColor: tag === 'Sale' ? '#B7EFC5' : '#ffe0cc', width:'4.2rem',height:'1.8rem', fontSize:'0.92rem',borderRadius:'7.06px', color: tag === 'Sale' ? '#1E4620' : '#ff5722'}} />
             <IconButton size="small" onClick={handleMenuOpen}>
               <MoreVertIcon />
             </IconButton>
@@ -73,9 +75,9 @@ const CardWithDetails: React.FC<CardWithDetailsProps> = ({id, price, tag, title,
                   setOpenDialog(true);
                 }}
                 sx={{
-                  color: '#7b5cf9',
-                  fontWeight: 600,
-                  backgroundColor: '#f3f0ff',
+                  color: '#3D28FF',
+                  fontWeight: 400,
+                  backgroundColor: '#7060FF29',
                   borderRadius: 1,
                   marginBottom: 1,
                 }}
@@ -90,8 +92,8 @@ const CardWithDetails: React.FC<CardWithDetailsProps> = ({id, price, tag, title,
                   }
                 }}
                 sx={{
-                  color: 'red',
-                  fontWeight: 600,
+                  color: '#F44336',
+                  fontWeight: 400,
                   borderRadius: 1,
                 }}
               >
@@ -99,19 +101,20 @@ const CardWithDetails: React.FC<CardWithDetailsProps> = ({id, price, tag, title,
               </MenuItem>
             </Menu>
           </Box>
-        </Box>
-        <Box>
-          <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: '14px', color: 'black' }}>
-            {title}
+        </Grid>
+        <Grid item>
+          <Typography variant="body1" sx={{ fontSize: '1.2rem', ontWeight: 400, color: '#212121' }}>
+            {'Zahara by Bren Corporation'}
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
-            <HomeIcon sx={{ fontSize: 16, color: '#ff9800' }} />
-            <Typography variant="body2" sx={{ color: 'black', fontSize: '12px' }}>
+        </Grid>
+          <Grid item sx={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
+            <MapsHomeWorkOutlinedIcon sx={{ fontSize: 20, color: '#B05911' }} />
+            <Typography variant="body2" sx={{ fontSize: '1rem', fontWeight: 400, color:'#212121' }}>
               {subtitle}
             </Typography>
-          </Box>
-        </Box>
-      </Card>
+          </Grid>
+        </Grid>
+      </Paper>
        <Dialog open={openDialog} onClose={()=>setOpenDialog(false)}>
             <AddOrEditProperty data={{price: price, type:tag, name:title, propertyType:subtitle}} id={id} onClose={()=>setOpenDialog(false)}/>
         </Dialog>
